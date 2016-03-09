@@ -1,17 +1,14 @@
-#foodinputdiv{
-  background-color: lightgrey;
-  border-radius: 3px;
-  padding: 10px;
-}
-#message{
+#message {
   position: relative;
   display: none;
 }
-#message span{
+
+#message span {
   position: absolute;
   top: 0;
   right: 5px;
 }
+
 body {
     padding-top: 70px;
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
