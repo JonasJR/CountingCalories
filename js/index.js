@@ -1,23 +1,31 @@
-var food;
+var sugg;
 var callurl;
-$("#addbutton").on("click", function(){
-  food = $("#foodinput").val();
-  console.log(food);
-  showMessage(food);
-  callurl = "fatsecretapiurl";
+$("#foodinput").on("input", function(){
+  console.log("hejsan!");
+  if($("#foodinput").val().length > 2){
+  sugg = $("#foodinput").val();
+  console.log(sugg);
+  callurl = "http://matapi.se/foodstuff?";
   $.ajax({
     url: callurl,
     dataType : "JSON",
     data: {
-      escape: "javascript"
+    query: sugg
     }
   }).done(function(data){
-    console.log("done!");
+    console.log(data);
+    var index;
+    $("#ulfood").empty();
+    for(index = 0; index < 10 ; index ++){
+      $("#ulfood").append("<li class=" + '"list-group-item"' + "><a href=" + '"www.youtube.com"' + ">" + data[index].name + "</a></li>");
+
+    }
   }).fail(function(data){
     console.log("failfish");
   });
+  }
 });
 
-function addItemToUl(data){
+function addItemToUl(obj){
   $("#ulfood").append("<li class=" + '"list-group-item"' + ">" + data.Name + data.amount +"</li>")
 }
