@@ -1,48 +1,58 @@
-var sugg;
+var sugg = [];
+var amount;
+var name;
+var str;
 var callurl;
-$("#foodinput").on("input", function(){
-  console.log("hejsan!");
-  if($("#foodinput").val().length > 2){
-    sugg = $("#foodinput").val();
-    console.log(sugg);
+var regex = /(\d+)/g;
+$("#foodinput").on("input", function() {
+  if ($("#foodinput").val().length > 2) {
+    str = $("#foodinput").val();
+    sugg = str.split(" ");
+    for (i = 0; i < sugg.length; i++) {
+      if (sugg[i].match(regex) != undefined) {
+        amount = sugg[i];
+      } else {
+        name = sugg[i];
+      }
+    }
+    console.log("Name: " + name + " Amount: " + amount);
+
     callurl = "http://matapi.se/foodstuff";
     $.ajax({
       url: callurl,
-      dataType : "JSON",
+      dataType: "JSON",
       data: {
-        query: sugg
+        query: name
       }
-    }).done(function(data){
-      console.log(data);
+    }).done(function(data) {
       var index;
       $("#ulfood").empty();
-      for(index = 0; index < 10 ; index ++){
-        if(data[index]== undefined){
+      for (index = 0; index < 10; index++) {
+        if (data[index] == undefined) {
           break;
         }
         $("#ulfood").append("<li class='list-group-item'><a class='searchitem' href='#' data-id='" + data[index].number + "'>" + data[index].name + "</a></li>");
       }
-      $(".searchitem").on("click", function(){
-        var foodnr= $(this).attr("data-id");
+      $(".searchitem").on("click", function() {
+        var foodnr = $(this).attr("data-id");
         $.ajax({
           url: callurl + "/" + foodnr,
-          dataType : "JSON",
-        }).done(function(data){
-          console.log(data);
-          $("#food-table tbody").append("<tr><td></td><td>" + data.name +"</td></tr>");
+          dataType: "JSON",
+        }).done(function(data) {
+          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td></tr>");
           $("#ulfood").empty();
           $("#foodinput").val("");
 
-        }).fail(function(){
+        }).fail(function() {
           console.log("failfish");
         });
       });
-    }).fail(function(){
+    }).fail(function() {
       console.log("failfish1");
     });
   }
 });
 
-function addItemToUl(obj){
-  $("#ulfood").append("<li class=" + '"list-group-item"' + ">" + data.Name + data.amount +"</li>")
+function addItemToUl(obj) {
+  $("#ulfood").append("<li class=" + '"list-group-item"' + ">" + data.Name + data.amount + "</li>")
 }
