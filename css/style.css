@@ -16,3 +16,18 @@ body {
     padding-top: 70px;
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+
+#ulfood li {
+  padding: 0;
+}
+
+#ulfood a {
+  display: block;
+  padding: 15px;
+}
+
+#ulfood a:hover {
+  color: white;
+  background-color: #337AB7;
+  text-decoration: none;
+}
