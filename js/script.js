@@ -21,5 +21,9 @@ function showMessage(message) {
   messageDiv.removeClass();
   messageDiv.addClass("alert alert-success");
   messageDiv.fadeIn(400);
+}
 
+function hideMesssage(){
+  var messageDiv = $("#message");
+  messageDiv.fadeOut(400);
 }
