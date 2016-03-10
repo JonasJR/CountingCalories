@@ -26,7 +26,7 @@ $(document).ready(function() {
   if (localStorage.getItem("foodList") != undefined) {
     var temp = JSON.parse(localStorage.getItem("foodList"));
     for (var i = 0; i < temp.length; i++) {
-      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td><i class='glyphicon glyphicon-trash'></i></td></tr>");
+      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td class='center'><i class='glyphicon glyphicon-trash center'></i></td></tr>");
     }
   }
 });
@@ -97,7 +97,7 @@ foodInput.on("input", function() {
             (month < 10 ? '0' : '') + month + '-' +
             (day < 10 ? '0' : '') + day;
           //appendFoodItem();
-          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal.toFixed(2) + "</td><td>BUTTON</td></tr>");
+          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal.toFixed(2) + "</td><td class='center'><i class='glyphicon glyphicon-trash center'></i></td></tr>");
           var tempFoodList = {
             date: time,
             name: data.name,
