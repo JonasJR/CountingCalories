@@ -148,9 +148,9 @@ function appendFoodItem(amount, name, kcal, id) {
     temp = JSON.parse(localStorage.getItem("foodList"));
     for (var i = 0; i < temp.length; i++) {
       if (temp[i].id == $("#trash" + id).attr("data-id")) {
-        var indexrem = temp.indexOf(temp[i]);
-        if (indexrem > -1) {
-          temp.splice(indexrem, 1);
+        var indexremove = temp.indexOf(temp[i]);
+        if (indexremove > -1) {
+          temp.splice(indexremove, 1);
         }
       }
     }
