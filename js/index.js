@@ -3,6 +3,7 @@ var foodInput = $("#food-input");
 var searchList = $("#search-list");
 var saveBtn = $("#save-list-btn");
 var clearBtn = $("#clear-list-btn");
+var trashBtn = $(".trashcan");
 var sugg = [];
 var amount;
 var regex = /(\d+)/g;
@@ -24,12 +25,17 @@ var units = {
 
 $(document).ready(function() {
   if (localStorage.getItem("foodList") != undefined) {
-    var temp = JSON.parse(localStorage.getItem("foodList"));
-    for (var i = 0; i < temp.length; i++) {
-      appendFoodItem(temp[i].amount, temp[i].name, temp[i].kcal);
-    }
+    getFoodList();
   }
 });
+
+function getFoodList() {
+  $("#food-table tbody").empty();
+  var temp = JSON.parse(localStorage.getItem("foodList"));
+  for (var i = 0; i < temp.length; i++) {
+    appendFoodItem(temp[i].amount, temp[i].name, temp[i].kcal, temp[i].id);
+  }
+}
 
 foodInput.on("input", function() {
   var searchTerm = foodInput.val();
@@ -91,13 +97,15 @@ foodInput.on("input", function() {
           var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
           var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
           var d = new Date();
+          var id = $.now();
           var month = d.getMonth() + 1;
           var day = d.getDate();
           var time = d.getFullYear() + '-' +
             (month < 10 ? '0' : '') + month + '-' +
             (day < 10 ? '0' : '') + day;
-          appendFoodItem(amount, data.name, totalKcal.toFixed(2));
+          appendFoodItem(amount, data.name, totalKcal.toFixed(2), id);
           var tempFoodList = {
+            id: id,
             date: time,
             name: data.name,
             amount: amount,
@@ -131,8 +139,24 @@ foodInput.on("input", function() {
   }
 });
 
-function appendFoodItem(amount, name, kcal) {
-  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal + '</td><td class="center"><a href="#"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
+function appendFoodItem(amount, name, kcal, id) {
+  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal +
+    "</td><td class='center'><a href='#' id='trash" + id + "' data-id='" + id + "'><i class='glyphicon glyphicon-trash'></i></a></td></tr>");
+  $("#trash" + id).on("click", function() {
+    console.log("click called");
+    var temp = [];
+    temp = JSON.parse(localStorage.getItem("foodList"));
+    for (var i = 0; i < temp.length; i++) {
+      if (temp[i].id == $("#trash" + id).attr("data-id")) {
+        var indexrem = temp.indexOf(temp[i]);
+        if (indexrem > -1) {
+          temp.splice(indexrem, 1);
+        }
+      }
+    }
+    localStorage.setItem("foodList", JSON.stringify(temp));
+    getFoodList();
+  });
 }
 
 saveBtn.on("click", function() {
