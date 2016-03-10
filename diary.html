@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="utf-8">
@@ -8,13 +9,17 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Bare - Start Bootstrap Template</title>
+  <title>CountingCalories</title>
   <link href="css/style.css" rel="stylesheet" media="screen">
   <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <script src="js/jquery.js"></script>
-  <script src="calendar/zabuto_calendar.min.js"></script>
   <link rel="stylesheet" type="text/css" href="calendar/zabuto_calendar.min.css">
+
+  <script src="js/jquery.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="calendar/zabuto_calendar.min.js"></script>
+  <script src="js/diary.js"></script>
+
   <!-- Custom CSS -->
 
 
@@ -45,15 +50,15 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a href="diary.html">Food Diary</a>
-            </li>
-            <li>
-                <a href="statistics.html">Food Statistics</a>
-            </li>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="diary.html">Food Diary</a>
+          </li>
+          <li>
+            <a href="statistics.html">Food Statistics</a>
+          </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -66,19 +71,13 @@
 
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1>Remember your food.</h1>
-        <div class="container-fluid">
-          <h1>Här finns en kalender</h1>
+        <div>
+          <h1>Matdagbok <br> <small>klicka på en dag för att se statistik</small></h1>
         </div>
       </div>
     </div>
     <div id="my-calendar"></div>
 
-    <script type="application/javascript">
-        $(document).ready(function () {
-            $("#my-calendar").zabuto_calendar({language: "en"});
-        });
-    </script>
     <!-- /.row -->
 
   </div>
