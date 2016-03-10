@@ -8,7 +8,7 @@ $(document).ready(function() {
     language: "en",
     data: eventData
   });
-  addDateListeners(eventData);
+  addDateListeners(calendar);
 });
 
 
@@ -20,8 +20,8 @@ function createEventData(calendar) {
       date: day.date,
       badge: true,
       title: day.date,
-      body: getBodyData(),
-      footer: "At Paisley Park",
+      body: getBodyData(day.date),
+      footer: '<button class="btn btn-primary">Mer information</button>',
       classname: "purple-event",
       "modal": true
     })
@@ -31,32 +31,32 @@ function createEventData(calendar) {
 
 
 function getBodyData() {
-  var body = '<div class="piechart" style="width: 900px; height: 500px;"></div>'
+  var body = '<div class="piechart"></div>'
   return body;
 }
 
-function createChart(date) {
+function createChart(day) {
+  console.log(day.fat);
+
   google.charts.load('current', {
     'packages': ['corechart']
   });
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
+    console.log(day.fat);
     var data = google.visualization.arrayToDataTable([
-      ['Task', 'Hours per Day'],
-      ['Work', 11],
-      ['Eat', 2],
-      ['Commute', 2],
-      ['Watch TV', 2],
-      ['Sleep', 7]
+      ['Intag', 'Energi procent'],
+      ['Fett', day.fat],
+      ['Kolhydrat', day.carb],
+      ['Protein', day.protein],
     ]);
 
     var options = {
       title: 'My Daily Activities'
     };
-    console.log(date + "till PieChart");
-    console.log(('#zabuto_calendar_' + date + "_modal .piechart"));
-    var chart = new google.visualization.PieChart($('#zabuto_calendar_' + date + "_modal .piechart"));
+
+    var chart = new google.visualization.PieChart($('#zabuto_calendar_' + day.date + "_modal .piechart")[0]);
 
     chart.draw(data, options);
   }
@@ -67,7 +67,7 @@ function addDateListeners(calendar) {
 
   calendar.forEach(function(day) {
     $("#zabuto_calendar_" + day.date).on("click", function() {
-      createChart(day.date);
+      createChart(day);
     })
   });
 }

@@ -11,6 +11,11 @@
 .center{
   text-align: center;
 }
+/*.piechart{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}*/
 
 body {
     padding-top: 70px;
