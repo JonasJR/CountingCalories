@@ -132,7 +132,7 @@ foodInput.on("input", function() {
 });
 
 function appendFoodItem(amount, name, kcal) {
-  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal + "</td><td><i class='glyphicon glyphicon-trash'></i></td></tr>");
+  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal + '</td><td class="center"><a href="#"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
 }
 
 saveBtn.on("click", function() {

@@ -12,11 +12,10 @@
   text-align: center;
   margin: 0 auto;
 }
-/*.piechart{
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}*/
+
+tbody a {
+  color: #333;
+}
 
 body {
     padding-top: 70px;
