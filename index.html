@@ -72,21 +72,20 @@
     </div>
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1>Fill in your food.</h1>
+        <h1>Fyll i ditt intag</h1>
       </div>
     </div>
 
-    <h2>Add food.</h2>
+
     <form role="form">
+
       <div class="form-group">
         <div class="row">
-          <div id="food-input-div" class="col-xs-8">
-            <input type="text" placeholder="Input type of food" class="form-control" id="food-input">
+          <div id="food-input-div" class="col-xs-12">
+            <label for="food-input">Fyll i livsmedel</label>
+            <input type="text" placeholder="ex. 500g Vetemjöl" class="form-control" id="food-input">
             <ul class="list-group" id="search-list">
             </ul>
-          </div>
-          <div class="col-xs-4">
-            <button type="button" class="btn btn-primary" id="addbutton"><i class="glyphicon glyphicon-plus"></i> ADD</button>
           </div>
         </div>
       </div>
@@ -97,29 +96,25 @@
         <table class="table table-striped" id="food-table">
           <thead>
             <tr>
-              <th>Amount</th>
-              <th>Name</th>
+              <th>Mängd</th>
+              <th>Livsmedel</th>
               <th>Kcal</th>
             </tr>
           </thead>
           <tfoot>
-            <tr><td colspan="2">Test</td></tr>
-          </tfoot>
-          <tbody>
-
-          </tbody>
-          <tfoot>
-            <td colspan="2">
+            <td colspan="3">
               Baserat på uppgifter från Livsmedelverket.
             </td>
           </tfoot>
+          <tbody>
+          </tbody>
         </table>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">
-        <button type="button" class="btn btn-primary">Show statistics</button>
-        <button type="button" class="btn btn-primary">EAT SHIT</button>
+      <div class="col-xs-12 center">
+        <button type="button" class="btn btn-primary " id="save-list-btn">Spara</button>
+        <button type="button" class="btn btn-default" id="clear-list-btn">Rensa</button>
       </div>
     </div>
   </div>

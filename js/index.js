@@ -4,6 +4,21 @@ var searchList = $("#search-list");
 var sugg = [];
 var amount;
 var regex = /(\d+)/g;
+var units = {
+  g: 1,
+  gram: 1,
+  hg: 100,
+  hekto: 100,
+  kg: 1000,
+  kilo: 1000,
+  dl: 100,
+  cl: 10,
+  l: 1000,
+  liter: 1000,
+  msk: 15,
+  tsk: 5,
+  krm: 1
+}
 
 foodInput.on("input", function() {
   var searchTerm = foodInput.val();
@@ -24,8 +39,6 @@ foodInput.on("input", function() {
         query: searchTerm
       }
     }).done(function(data) {
-      console.log(data);
-
       searchList.empty();
       for (var index = 0; index < 10; index++) {
         if (data[index] == undefined) {
@@ -48,21 +61,33 @@ foodInput.on("input", function() {
           url: callurl + "/" + foodId,
           dataType: "JSON",
         }).done(function(data) {
-          console.log(data);
-          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + data.nutrientValues.energyKcal + "</td></tr>");
+          var unit = "";
+          var weight = "";
+          for (var i = 0; i < amount.length; i++) {
+            if (/^[0-9]+$/.test(amount[i])) {
+              weight += amount[i];
+            } else {
+              unit += amount[i];
+            }
+          }
+          var totalgram = units[unit] * weight;
+          var singleKcal = data.nutrientValues.energyKcal / 100;
+          var totalKcal = totalgram * singleKcal;
+          console.log(totalKcal);
+          console.log(units[unit]);
+          console.log(weight);
+          console.log(unit);
+
+          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal + "</td></tr>");
           searchList.empty();
           foodInput.val("");
 
         }).fail(function() {
-          console.log("failfish");
+          console.log("food id fail");
         });
       });
     }).fail(function() {
-      console.log("failfish1");
+      console.log("fail to connect to matapi");
     });
   }
 });
-
-function addItemToUl(obj) {
-  searchList.append("<li class=" + '"list-group-item"' + ">" + data.Name + data.amount + "</li>")
-}
