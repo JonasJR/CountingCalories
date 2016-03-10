@@ -26,7 +26,7 @@ $(document).ready(function() {
   if (localStorage.getItem("foodList") != undefined) {
     var temp = JSON.parse(localStorage.getItem("foodList"));
     for (var i = 0; i < temp.length; i++) {
-      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td><i class='glyphicon glyphicon-trash'></i></td></tr>");
+      appendFoodItem(temp[i].amount, temp[i].name, temp[i].kcal);
     }
   }
 });
@@ -96,8 +96,7 @@ foodInput.on("input", function() {
           var time = d.getFullYear() + '-' +
             (month < 10 ? '0' : '') + month + '-' +
             (day < 10 ? '0' : '') + day;
-          //appendFoodItem();
-          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal.toFixed(2) + "</td><td>BUTTON</td></tr>");
+          appendFoodItem(amount, data.name, totalKcal.toFixed(2));
           var tempFoodList = {
             date: time,
             name: data.name,
@@ -131,6 +130,10 @@ foodInput.on("input", function() {
     });
   }
 });
+
+function appendFoodItem(amount, name, kcal) {
+  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal + "</td><td><i class='glyphicon glyphicon-trash'></i></td></tr>");
+}
 
 saveBtn.on("click", function() {
   if (localStorage.getItem("foodList") != undefined) {
