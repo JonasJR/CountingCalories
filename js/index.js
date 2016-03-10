@@ -2,6 +2,7 @@ var callurl = "http://matapi.se/foodstuff";
 var foodInput = $("#food-input");
 var searchList = $("#search-list");
 var saveBtn = $("#save-list-btn");
+var clearBtn = $("#clear-list-btn");
 var sugg = [];
 var amount;
 var regex = /(\d+)/g;
@@ -24,9 +25,8 @@ var units = {
 $(document).ready(function() {
   if (localStorage.getItem("foodList") != undefined) {
     var temp = JSON.parse(localStorage.getItem("foodList"));
-    console.log(temp);
     for (var i = 0; i < temp.length; i++) {
-      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td></tr>");
+      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td>BUTTON</td></tr>");
     }
   }
 });
@@ -81,7 +81,6 @@ foodInput.on("input", function() {
               unit += amount[i];
             }
           }
-          console.log(data);
           var totalGram = units[unit] * weight;
           var totalKcal = totalGram * (data.nutrientValues.energyKcal / 100);
           var totalFat = totalGram * (data.nutrientValues.fat / 100);
@@ -94,10 +93,11 @@ foodInput.on("input", function() {
           var d = new Date();
           var month = d.getMonth() + 1;
           var day = d.getDate();
-          var time = d.getFullYear() + '/' +
-            (month < 10 ? '0' : '') + month + '/' +
+          var time = d.getFullYear() + '-' +
+            (month < 10 ? '0' : '') + month + '-' +
             (day < 10 ? '0' : '') + day;
-          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal + "</td></tr>");
+          //appendFoodItem();
+          $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + data.name + "</td><td>" + totalKcal.toFixed(2) + "</td><td>BUTTON</td></tr>");
           var tempFoodList = {
             date: time,
             name: data.name,
@@ -111,7 +111,6 @@ foodInput.on("input", function() {
             vitaminB12: totalVitB12.toFixed(2),
             vitaminD: totalVitD.toFixed(2)
           }
-          console.log(tempFoodList);
           var tempLocal = [];
           if (localStorage.getItem("foodList") != undefined) {
             tempLocal = localStorage.getItem("foodList");
@@ -120,8 +119,6 @@ foodInput.on("input", function() {
           }
           tempLocal.push(tempFoodList);
           localStorage.setItem("foodList", JSON.stringify(tempLocal));
-          console.log(tempLocal);
-          console.log(localStorage.getItem("foodList"));
           searchList.empty();
           foodInput.val("");
 
@@ -137,13 +134,22 @@ foodInput.on("input", function() {
 
 saveBtn.on("click", function() {
   if (localStorage.getItem("foodList") != undefined) {
-    var tempFood = JSON.parse(localStorage.getItem("foodList"));
-    var tempCal = "";
+    var tempFood = [];
+    tempFood = JSON.parse(localStorage.getItem("foodList"));
+    var tempCal = [];
     if (localStorage.getItem("Calendar") != undefined) {
-      tempCal = JSON.parse(localStorage.getItem("Calender"));
+      tempCal = JSON.parse(localStorage.getItem("Calendar"));
     }
-    tempCal += tempFood;
+    for (var i = 0; i < tempFood.length; i++) {
+      tempCal.push(tempFood[i]);
+      console.log(tempFood[i]);
+    }
     localStorage.setItem("Calendar", JSON.stringify(tempCal));
-    localStorage.setItem("foodList", "");
+    console.log(localStorage.getItem("Calendar"));
   }
+});
+
+clearBtn.on("click", function() {
+  $("#food-table tbody").empty();
+  localStorage.removeItem("foodList");
 });
