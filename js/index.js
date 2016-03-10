@@ -26,7 +26,7 @@ $(document).ready(function() {
   if (localStorage.getItem("foodList") != undefined) {
     var temp = JSON.parse(localStorage.getItem("foodList"));
     for (var i = 0; i < temp.length; i++) {
-      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td>BUTTON</td></tr>");
+      $("#food-table tbody").append("<tr><td>" + temp[i].amount + "</td><td>" + temp[i].name + "</td><td>" + temp[i].kcal + "</td><td><i class='glyphicon glyphicon-trash'></i></td></tr>");
     }
   }
 });
