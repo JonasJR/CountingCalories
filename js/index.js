@@ -96,17 +96,10 @@ foodInput.on("input", function() {
           var totalVitB6 = totalGram * (data.nutrientValues.vitaminB6 / 100);
           var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
           var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
-          var d = new Date();
           var id = $.now();
-          var month = d.getMonth() + 1;
-          var day = d.getDate();
-          var time = d.getFullYear() + '-' +
-            (month < 10 ? '0' : '') + month + '-' +
-            (day < 10 ? '0' : '') + day;
           appendFoodItem(amount, data.name, totalKcal.toFixed(2), id);
           var tempFoodList = {
             id: id,
-            date: time,
             name: data.name,
             amount: amount,
             fat: totalFat.toFixed(2),
@@ -160,17 +153,41 @@ function appendFoodItem(amount, name, kcal, id) {
 }
 
 saveBtn.on("click", function() {
+  var d = new Date();
+  var month = d.getMonth() + 1;
+  var day = d.getDate();
+  var time = d.getFullYear() + '-' +
+    (month < 10 ? '0' : '') + month + '-' +
+    (day < 10 ? '0' : '') + day;
+
   if (localStorage.getItem("foodList") != undefined) {
+    var fat = 0;
+    var protein = 0;
+    var carb = 0;
+    var kcal = 0;
     var tempFood = [];
+    var tempFoodList = [];
     tempFood = JSON.parse(localStorage.getItem("foodList"));
     var tempCal = [];
     if (localStorage.getItem("Calendar") != undefined) {
       tempCal = JSON.parse(localStorage.getItem("Calendar"));
     }
     for (var i = 0; i < tempFood.length; i++) {
-      tempCal.push(tempFood[i]);
-      console.log(tempFood[i]);
+      tempFoodList.push(tempFood[i]);
+      fat += parseInt(tempFood[i].fat);
+      protein += parseInt(tempFood[i].protein);
+      carb += parseInt(tempFood[i].carb);
+      kcal += parseInt(tempFood[i].kcal);
     }
+    var tempFoodList = {
+      date: time,
+      items: tempFood,
+      totalFat: fat,
+      totalProtein: protein,
+      totalCarb: carb,
+      totalKcal: kcal
+    }
+    tempCal.push(tempFoodList);
     localStorage.setItem("Calendar", JSON.stringify(tempCal));
     console.log(localStorage.getItem("Calendar"));
   }
