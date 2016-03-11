@@ -1,0 +1,88 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title CountingCalories
+    meta(name="description", content="")
+    meta(name="author", content="")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="mobile-web-app-capable", content="yes")
+    link(rel="apple-touch-icon", href="desktop-icon.png")
+    link(rel="apple-touch-icon-precomposed", href="desktop-icon.png")
+    link(rel="apple-touch-icon", sizes="144x144", href="desktop-icon.png")
+    link(rel="apple-touch-icon", sizes="114x114", href="desktop-icon.png")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(href="css/styles.css", rel="stylesheet", media="screen")
+    // Bootstrap Core CSS 
+    link(href="css/bootstrap.min.css", rel="stylesheet")
+
+    // Custom CSS 
+
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries 
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //[if lt IE 9]>
+    //      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    //      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    //  <![endif]
+    
+  body
+    //Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+      .container
+        .navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="navigation")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+            
+          a.navbar-brand(href="#") Kustbevakningen
+          
+        #navigation.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href="index.html") Home
+            li
+              a(href="diary.html") Food Diary
+            li
+              a(href="statistics.html") Food Statistics
+              
+    .container
+      #message.alert.alert-success
+        p
+        span.pull-right
+          a(href="#") X
+          
+      .row
+        .col-lg-12.text-center
+          h1 Fyll i ditt intag
+          
+      form(role="form")
+        .form-group
+          .row
+            #food-input-div.col-xs-12
+              label(for="food-input") Fyll i levsmedel
+              input#food-input.form-control(type="text", placeholder="Ex. 500g Vetemjöl")
+              ul#search-list.list-group
+              
+      .row
+        .col-xs-12
+          table#food-table.table.table-striped
+            thead
+              tr
+                th Mängd
+                th Livsmedel
+                th Kcal
+                th
+            tfoot
+              td(colspan="4")
+            tbody
+      .row
+        .col-xs-12.center
+          button#save-list-btn.btn.btn-primary(type="button") Spara
+          button#clear-list-btn.btn.btn-default(type="button") Rensa
+      
+    script(src="javascript/jquery.js")
+    script(src="javascript/bootstrap.min.js")
+    script(src="javascript/script.js")
+    script(src="javascript/index.js")  

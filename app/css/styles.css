@@ -1,0 +1,39 @@
+#message {
+  position: relative;
+  display: none; }
+  #message span {
+    position: absolute;
+    top: 0;
+    right: 5px; }
+
+.center {
+  text-align: center;
+  margin: 0 auto; }
+
+tbody a {
+  color: #eee; }
+
+body {
+  padding-top: 70px; }
+
+.piechart {
+  width: 100%;
+  height: 500px;
+  font-size: 11px; }
+
+#food-input-div {
+  position: relative; }
+  #food-input-div #search-list {
+    position: absolute;
+    margin-top: 60px;
+    top: 0;
+    z-index: 10; }
+    #food-input-div #search-list li {
+      padding: 0; }
+    #food-input-div #search-list a {
+      display: block;
+      padding: 15px; }
+      #food-input-div #search-list a:hover {
+        color: white;
+        background-color: #337AB7;
+        text-decoration: none; }

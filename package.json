@@ -1,0 +1,25 @@
+{
+  "name": "counting_calories",
+  "version": "0.0.1",
+  "description": "## Food object Stored as: {   date:   name:   fat:   protein:   carb:   vitaminC:   vitaminA:   vitaminB1:   vitaminB2:   vitaminB12:   vitaminD: }",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xeronic/CountingCalories.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xeronic/CountingCalories/issues"
+  },
+  "homepage": "https://github.com/Xeronic/CountingCalories#readme",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.2.0"
+  }
+}
