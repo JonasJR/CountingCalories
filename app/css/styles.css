@@ -5,6 +5,11 @@
     position: absolute;
     top: 0;
     right: 5px; }
+  #message a {
+    color: inherit; }
+    #message a:hover {
+      text-decoration: none;
+      color: white; }
 
 .center {
   text-align: center;

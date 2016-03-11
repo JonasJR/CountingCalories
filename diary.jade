@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title CountingCalories
+    meta(name="description", content="")
+    meta(name="author", content="")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="mobile-web-app-capable", content="yes")
+    link(rel="apple-touch-icon", href="desktop-icon.png")
+    link(rel="apple-touch-icon-precomposed", href="desktop-icon.png")
+    link(rel="apple-touch-icon", sizes="144x144", href="desktop-icon.png")
+    link(rel="apple-touch-icon", sizes="114x114", href="desktop-icon.png")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    
+    // CSS
+    link(href="css/bootstrap.min.css", rel="stylesheet")
+    link(href="css/styles.css", rel="stylesheet", media="screen")
+    
+    // Javascript
+    script(src="javascript/jquery.js")
+    script(src="javascript/bootstrap.min.js")
+    script(src="https://www.amcharts.com/lib/3/amcharts.js")
+    script(src="https://www.amcharts.com/lib/3/pie.js")
+    script(src="https://www.amcharts.com/lib/3/themes/none.js")
+    script(src="calendar/zabuto_calendar.min.js")
+    script(src="javascript/script.js")
+    script(src="javascript/diary.js")
+
+  body
+    //Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+      .container
+        .navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="navigation")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+            
+          a.navbar-brand(href="#") Kustbevakningen
+          
+        #navigation.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href="index.html") Home
+            li
+              a(href="diary.html") Food Diary
+            li
+              a(href="statistics.html") Food Statistics
+
+    .container
+      .row
+        .col-xs-12.text-center
+          h1 Matdagbok
+            br
+            small Klicka på en dag för att se statistik
+      
+      #my-calendar

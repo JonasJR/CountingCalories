@@ -16,15 +16,6 @@ html
     // Bootstrap Core CSS 
     link(href="css/bootstrap.min.css", rel="stylesheet")
 
-    // Custom CSS 
-
-    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries 
-    // WARNING: Respond.js doesn't work if you view the page via file://
-    //[if lt IE 9]>
-    //      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    //      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    //  <![endif]
-    
   body
     //Navigation
     nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
@@ -45,7 +36,7 @@ html
             li
               a(href="diary.html") Food Diary
             li
-              a(href="statistics.html") Food Statistics
+              a.active(href="statistics.html") Food Statistics
               
     .container
       #message.alert.alert-success
@@ -75,7 +66,7 @@ html
                 th Kcal
                 th
             tfoot
-              td(colspan="4")
+              td(colspan="4") Baserat på uppgifter från Livsmedelverket.
             tbody
       .row
         .col-xs-12.center
