@@ -22,6 +22,12 @@ body {
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.piechart {
+  width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}
+
 #food-input-div {
   position: relative;
 }

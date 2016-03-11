@@ -11,16 +11,28 @@ $(document).ready(function() {
   addDateListeners(calendar);
 });
 
+/*
+
+{
+  date: 2016-03-10,
+  items: [{},{},{}],
+  totalFat: 300,
+  totalProtein: 150,
+  totalCarb: 30
+  totalKCal
+}
+
+/*
 
 function createEventData(calendar) {
   var returndata = [];
   calendar.forEach(function(day) {
-    console.log(day);
+
     returndata.push({
       date: day.date,
       badge: true,
       title: day.date,
-      body: getBodyData(day.date),
+      body: getBodyData(day),
       footer: '<button class="btn btn-primary">Mer information</button>',
       classname: "purple-event",
       "modal": true
@@ -30,36 +42,36 @@ function createEventData(calendar) {
 }
 
 
-function getBodyData() {
-  var body = '<div class="piechart"></div>'
+function getBodyData(day) {
+  var body = '<div id="piechart_' + day.date + '" class="piechart"></div>'
   return body;
 }
 
 function createChart(day) {
-  console.log(day.fat);
+  // #zabuto_calendar_' + day.date + "_modal .piechart"
 
-  google.charts.load('current', {
-    'packages': ['corechart']
+  var chart = AmCharts.makeChart("piechart_" + day.date, {
+    "type": "pie",
+    "theme": "none",
+    "dataProvider": [ {
+      "Typ": "Fett",
+      "Gram": day.fat
+    }, {
+      "Typ": "Kolhydrater",
+      "Gram": day.carb
+    }, {
+      "Typ": "Protein",
+      "Gram": day.protein
+    }],
+    "valueField": "Gram",
+    "titleField": "Typ",
+     "balloon":{
+     "fixedPosition":true
+    },
+    "export": {
+      "enabled": true
+    }
   });
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-    console.log(day.fat);
-    var data = google.visualization.arrayToDataTable([
-      ['Intag', 'Energi procent'],
-      ['Fett', day.fat],
-      ['Kolhydrat', day.carb],
-      ['Protein', day.protein],
-    ]);
-
-    var options = {
-      title: 'My Daily Activities'
-    };
-
-    var chart = new google.visualization.PieChart($('#zabuto_calendar_' + day.date + "_modal .piechart")[0]);
-
-    chart.draw(data, options);
-  }
 }
 
 function addDateListeners(calendar) {
