@@ -31,7 +31,7 @@
     if (calendar === null) {
       return;
     }
-    return calendar.forEach(function(day) {
+    calendar.forEach(function(day) {
       return returnData.push({
         date: day.date,
         badge: true,
@@ -41,7 +41,8 @@
         classname: "purple-event",
         modal: true
       });
-    }, returnData);
+    });
+    return returnData;
   };
 
   getBodyData = function(day) {
@@ -52,33 +53,34 @@
 
   createChart = function(day) {
     var chart;
+    console.log(day);
     return chart = AmCharts.makeChart("piechart_" + day.date, {
-      "type": "pie",
-      "theme": "none",
-      "dataProvider": {
-        "Typ": "Fett",
-        "Gram": day.fat
-      }
-    }, {
-      "Typ": "Kolhydrater",
-      "Gram": day.carb
-    }, {
-      "Typ": "Protein",
-      "Gram": day.protein
-    }, {
-      "valueField": "Gram",
-      "titleField": "Typ",
-      "balloon": {
-        "fixedPosition": true
+      type: "pie",
+      theme: "none",
+      dataProvider: [
+        {
+          Typ: "Fett",
+          Gram: day.totalFat
+        }, {
+          Typ: "Kolhydrater",
+          Gram: day.totalCarb
+        }, {
+          Typ: "Protein",
+          Gram: day.totalProtein
+        }
+      ],
+      valueField: "Gram",
+      titleField: "Typ",
+      balloon: {
+        fixedPosition: true
       },
       "export": {
-        "enabled": true
+        enabled: true
       }
     });
   };
 
   addDateListeners = function(calendar) {
-    console.log("datelistner");
     if (calendar === null) {
       return;
     }

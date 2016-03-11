@@ -72,7 +72,7 @@ foodInput.on("input", function() {
           showErrorMessage("Vilken enhet är det?");
           return;
         }
-        hideMesssage();
+        hideMessage();
         var foodId = $(this).attr("data-id");
         $.ajax({
           url: callurl + "/" + foodId,
@@ -169,8 +169,8 @@ saveBtn.on("click", function() {
     var tempFoodList = [];
     tempFood = JSON.parse(localStorage.getItem("foodList"));
     var tempCal = [];
-    if (localStorage.getItem("Calendar") != undefined) {
-      tempCal = JSON.parse(localStorage.getItem("Calendar"));
+    if (localStorage.getItem("calendar") != undefined) {
+      tempCal = JSON.parse(localStorage.getItem("calendar"));
     }
     for (var i = 0; i < tempFood.length; i++) {
       tempFoodList.push(tempFood[i]);
@@ -188,8 +188,8 @@ saveBtn.on("click", function() {
       totalKcal: kcal
     }
     tempCal.push(tempFoodList);
-    localStorage.setItem("Calendar", JSON.stringify(tempCal));
-    console.log(localStorage.getItem("Calendar"));
+    localStorage.setItem("calendar", JSON.stringify(tempCal));
+    console.log(localStorage.getItem("calendar"));
   }
 });
 

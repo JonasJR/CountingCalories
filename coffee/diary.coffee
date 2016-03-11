@@ -25,8 +25,7 @@ createEventData = (calendar) ->
 
   return if calendar == null
 
-  calendar.forEach((day) ->
-
+  calendar.forEach (day) ->
     returnData.push
       date: day.date
       badge: true
@@ -36,40 +35,39 @@ createEventData = (calendar) ->
       classname: "purple-event"
       modal: true
 
-  returnData
-  )
+  return returnData
 
 getBodyData = (day) ->
   body = "<div id=\"piechart_#{day.date}\" class=\"piechart\"></div>"
   body
 
 createChart = (day) ->
-
+  console.log day
   chart = AmCharts.makeChart("piechart_#{day.date}",
-    "type": "pie"
-    "theme": "none"
-    "dataProvider":
-      "Typ": "Fett"
-      "Gram": day.fat
+    type: "pie"
+    theme: "none"
+    dataProvider: [
+      Typ: "Fett"
+      Gram: day.totalFat
     ,
-      "Typ": "Kolhydrater"
-      "Gram": day.carb
+      Typ: "Kolhydrater"
+      Gram: day.totalCarb
     ,
-      "Typ": "Protein"
-      "Gram": day.protein
-    ,
-    "valueField": "Gram"
-    "titleField": "Typ"
-    "balloon":
-      "fixedPosition":true
-    "export":
-      "enabled": true
+      Typ: "Protein"
+      Gram: day.totalProtein
+    ],
+    valueField: "Gram"
+    titleField: "Typ"
+    balloon:
+      fixedPosition: true
+    export:
+      enabled: true
   )
 
 addDateListeners = (calendar) ->
-  console.log "datelistner"
 
   return if calendar == null
+
   calendar.forEach (day) ->
     $("#zabuto_calendar_" + day.date).on "click", ->
       createChart(day)
