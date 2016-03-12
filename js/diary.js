@@ -22,7 +22,7 @@ $(document).ready(function() {
   totalKCal
 }
 
-/*
+*/
 
 function createEventData(calendar) {
   var returndata = [];
