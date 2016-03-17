@@ -7,14 +7,29 @@
   position: absolute;
   top: 0;
   right: 5px;
+  color: inherit;
 }
+
+#message span a {
+  color: inherit;
+}
+
+#message span a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+h1 {
+  color: #e71d36;
+}
+
 .center{
   text-align: center;
   margin: 0 auto;
 }
 
 tbody a {
-  color: #333;
+  color: #011627;
 }
 
 body {
@@ -52,4 +67,58 @@ body {
   color: white;
   background-color: #337AB7;
   text-decoration: none;
+}
+
+#kcal-day-progress {
+  height: 30px;
+  width: 100%;
+}
+
+/* Restyle boostrap */
+.navbar-inverse .navbar-brand {
+  color: #2ec4b6;
+  /* 4ACCCE */
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: #011627;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #011627;
+}
+
+.navbar {
+  background-color: white;
+  border-color: #eee;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #2ec4b6;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #eee;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+  background-color: #eee;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+  background-color: #eee;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: #eee;
+}
+
+
+/* Calendar styles */
+div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-event {
+  background-color: #4accce;
+}
+
+#zabuto_calendar th span {
+  font-size: 18px;
 }

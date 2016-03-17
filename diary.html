@@ -10,17 +10,22 @@
   <meta name="author" content="">
 
   <title>CountingCalories</title>
-  <link href="css/style.css" rel="stylesheet" media="screen">
+
   <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="calendar/zabuto_calendar.min.css">
 
+
   <script src="js/jquery.js"></script>
-  <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+  <script src="js/chart/chart.js"></script>
   <script src="https://www.amcharts.com/lib/3/pie.js"></script>
   <script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
   <script src="calendar/zabuto_calendar.min.js"></script>
+  <script src="js/script.js"></script>
   <script src="js/diary.js"></script>
+
+  <link href="css/style.css" rel="stylesheet" media="screen">
+
 
   <!-- Custom CSS -->
 
@@ -47,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Kustbevakningen</a>
+        <a class="navbar-brand" href="#">Counting Calories</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,10 +73,16 @@
   <!-- Page Content -->
   <div class="container">
 
+    <!-- Message dialog -->
+    <div id="message" class="alert alert-success">
+      <p></p><span class="pull-right"><a href="#">X</a></span>
+    </div>
+    <!-- End message dialog -->
+
     <div class="row">
       <div class="col-lg-12 text-center">
         <div>
-          <h1>Matdagbok <br> <small>klicka på en dag för att se statistik</small></h1>
+          <h1>Matdagbok</h1>
         </div>
       </div>
     </div>
@@ -79,6 +90,50 @@
 
     <!-- /.row -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="energyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Energibehov</h4>
+          </div>
+          <div class="modal-body">
+            <h5>Hej!</h5><p>Detta är första gången du besöker Counting Calories. För att ge dig mer precis beräkning av ditt energibehov ber vi dig fylla i tabellen nedan.</p>
+            <hr>
+            <form id="modal-form">
+              <div class="form-group">
+                <label for="gender">Kön</label><br>
+                <label class="radio-inline">
+                  <input type="radio" name="gender" value="male">Man
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" checked name="gender" value="female">Kvinna
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="age">Ålder</label>
+                <select class="form-control" name="age" id="age">
+                  <option value="young">10-30</option>
+                  <option value="middle">31-60</option>
+                  <option value="senior">61 och äldre</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="active">Aktivitetsnivå</label>
+                <select class="form-control" name="active" id="active">
+                  <option value="low">Låg</option>
+                  <option value="medium">Medel</option>
+                  <option value="high">Hög</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="add-energy-modal-button" type="button" class="btn btn-primary" data-dismiss="modal">Lägg till energibehov</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /.container -->
 
