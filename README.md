@@ -16,6 +16,20 @@ Stored as:
   vitaminD:
 }
 
+## TODO!
+# Kalender
+- Kalender ska fungera. Cirkeldiagram ska hålla data från localStorage.
+- Redigera dagar, kalender.
+
+#FoodStatistics
+- Lägga till rubrik för sidan, längst upp till vänster.
+- Diagram om vad du ätit specifikt för dagen vald i kalendern.
+
+# Index
+- Vid klick på inlagt livsmedel ska en ny rad fällas ut under raden, med diverse statistik.
+- Datepicker - index.html - Kunna välja vilken dag man vill fylla i för.
+
+
 ## Copyright and License
 
 Copyright 2016 JJAM
