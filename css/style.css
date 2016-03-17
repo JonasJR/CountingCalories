@@ -1,3 +1,17 @@
+/*
+  colors:
+
+  Marocko: #2EC4B6
+  Red:     #E71D36
+  Light:   #EFFFE9
+  Dark:    #011627
+
+  */
+
+body {
+  font-family: 'open sans';
+}
+
 #message {
   position: relative;
   display: none;
@@ -20,7 +34,7 @@
 }
 
 h1 {
-  color: #e71d36;
+  color: #011627;
 }
 
 .center{
