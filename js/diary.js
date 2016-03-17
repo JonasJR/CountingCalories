@@ -107,13 +107,13 @@ function createChart(day) {
     "theme": "none",
     "dataProvider": [ {
       "Typ": "Fett",
-      "Gram": day.totalFat
+      "Gram": ((day.totalFat * 9) / day.totalKcal) * 100
     }, {
       "Typ": "Kolhydrater",
-      "Gram": day.totalCarb
+      "Gram": ((day.totalCarb * 4) / day.totalKcal) * 100
     }, {
       "Typ": "Protein",
-      "Gram": day.totalProtein
+      "Gram": ((day.totalProtein * 4) / day.totalKcal) * 100
     }],
     "valueField": "Gram",
     "titleField": "Typ",

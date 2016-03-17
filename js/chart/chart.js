@@ -1087,6 +1087,7 @@
       return a
     },
     showBalloon: function(a, b, c, e) {
+      return;
       var d = this.offset;
       switch (this.position) {
         case "bottom":
@@ -2467,6 +2468,7 @@
       a && a.hide && a.hide()
     },
     showBalloon: function(a, b, c, e, d) {
+      return;
       var f = this;
       clearTimeout(f.balloonTO);
       clearTimeout(f.hoverInt);
@@ -5250,6 +5252,7 @@
       this.destroyTO && clearTimeout(this.destroyTO)
     },
     showBalloon: function(a) {
+      return;
       if (this.text != a || this.positionChanged) this.text = a, this.isHiding = !1, this.show = !0, this.destroyTO && clearTimeout(this.destroyTO), a = this.chart, this.fadeAnim1 && a.stopAnim(this.fadeAnim1), this.fadeAnim2 && a.stopAnim(this.fadeAnim2), this.draw(), this.positionChanged = !1
     },
     hide: function(a) {
