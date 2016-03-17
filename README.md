@@ -27,7 +27,6 @@ Stored as:
 
 # Index
 - Vid klick på inlagt livsmedel ska en ny rad fällas ut under raden, med diverse statistik.
-- Datepicker - index.html - Kunna välja vilken dag man vill fylla i för.
 
 
 ## Copyright and License

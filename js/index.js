@@ -4,6 +4,9 @@ var searchList = $("#search-list");
 var saveBtn = $("#save-list-btn");
 var clearBtn = $("#clear-list-btn");
 var trashBtn = $(".trashcan");
+var calendar = [];
+var tempFoodList = [];
+var tempList = [];
 var sugg = [];
 var amount;
 var regex = /(\d+)/g;
@@ -23,17 +26,40 @@ var units = {
   krm: 1
 }
 
+Date.prototype.toDateInputValue = (function() {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+});
+
 $(document).ready(function() {
-  if (localStorage.getItem("foodList") != undefined) {
-    getFoodList();
-  }
+  $('#datePicker').val(new Date().toDateInputValue());
+  getFoodList();
+});
+
+$("#datePicker").on("change", function() {
+  getFoodList();
 });
 
 function getFoodList() {
+  calendar = [];
+  tempList = [];
   $("#food-table tbody").empty();
-  var temp = JSON.parse(localStorage.getItem("foodList"));
-  for (var i = 0; i < temp.length; i++) {
-    appendFoodItem(temp[i].amount, temp[i].name, temp[i].kcal, temp[i].id);
+
+  if (localStorage.getItem("calendar") != undefined) {
+    var temp2 = JSON.parse(localStorage.getItem("calendar"));
+    var tempCalFood = [];
+    for (var i = 0; i < temp2.length; i++) {
+      if (temp2[i].date == $('#datePicker').val()) {
+        tempCalFood = temp2[i].items;
+        for (var j = 0; j < tempCalFood.length; j++) {
+          appendFoodItem(tempCalFood[j].amount, tempCalFood[j].name, tempCalFood[j].kcal, tempCalFood[j].id);
+          tempList.push(tempCalFood[j]);
+        }
+      } else {
+        calendar.push(temp2[i]);
+      }
+    }
   }
 }
 
@@ -111,17 +137,10 @@ foodInput.on("input", function() {
             vitaminB12: totalVitB12.toFixed(2),
             vitaminD: totalVitD.toFixed(2)
           }
-          var tempLocal = [];
-          if (localStorage.getItem("foodList") != undefined) {
-            tempLocal = localStorage.getItem("foodList");
-            var temp = JSON.parse(tempLocal);
-            tempLocal = temp;
-          }
-          tempLocal.push(tempFoodList);
-          localStorage.setItem("foodList", JSON.stringify(tempLocal));
+
+          tempList.push(tempFoodList);
           searchList.empty();
           foodInput.val("");
-
         }).fail(function() {
           console.log("food id fail");
         });
@@ -136,64 +155,78 @@ function appendFoodItem(amount, name, kcal, id) {
   $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal +
     "</td><td class='center'><a href='#' id='trash" + id + "' data-id='" + id + "'><i class='glyphicon glyphicon-trash'></i></a></td></tr>");
   $("#trash" + id).on("click", function() {
-    console.log("click called");
-    var temp = [];
-    temp = JSON.parse(localStorage.getItem("foodList"));
-    for (var i = 0; i < temp.length; i++) {
-      if (temp[i].id == $("#trash" + id).attr("data-id")) {
-        var indexremove = temp.indexOf(temp[i]);
+    for (var i = 0; i < tempList.length; i++) {
+      if (tempList[i].id == $("#trash" + id).attr("data-id")) {
+        var indexremove = tempList.indexOf(tempList[i]);
         if (indexremove > -1) {
-          temp.splice(indexremove, 1);
+          tempList.splice(indexremove, 1);
+          var time = $("#datePicker").val();
+          var fat = 0;
+          var protein = 0;
+          var carb = 0;
+          var kcal = 0;
+          var tempFoodList = [];
+
+          for (var i = 0; i < tempList.length; i++) {
+            tempFoodList.push(tempList[i]);
+            fat += parseInt(tempList[i].fat);
+            protein += parseInt(tempList[i].protein);
+            carb += parseInt(tempList[i].carb);
+            kcal += parseInt(tempList[i].kcal);
+          }
+
+          var tempFoodListRemoved = {
+            date: time,
+            items: tempFoodList,
+            totalFat: fat,
+            totalProtein: protein,
+            totalCarb: carb,
+            totalKcal: kcal
+          }
+          var tempCalendar = calendar;
+          tempCalendar.push(tempFoodListRemoved);
+          localStorage.setItem("calendar", JSON.stringify(tempCalendar));
+          tempCalendar = [];
+          tempList = [];
         }
       }
     }
-    localStorage.setItem("foodList", JSON.stringify(temp));
     getFoodList();
   });
 }
 
 saveBtn.on("click", function() {
-  var d = new Date();
-  var month = d.getMonth() + 1;
-  var day = d.getDate();
-  var time = d.getFullYear() + '-' +
-    (month < 10 ? '0' : '') + month + '-' +
-    (day < 10 ? '0' : '') + day;
+  var time = $("#datePicker").val();
 
-  if (localStorage.getItem("foodList") != undefined) {
-    var fat = 0;
-    var protein = 0;
-    var carb = 0;
-    var kcal = 0;
-    var tempFood = [];
-    var tempFoodList = [];
-    tempFood = JSON.parse(localStorage.getItem("foodList"));
-    var tempCal = [];
-    if (localStorage.getItem("calendar") != undefined) {
-      tempCal = JSON.parse(localStorage.getItem("calendar"));
-    }
-    for (var i = 0; i < tempFood.length; i++) {
-      tempFoodList.push(tempFood[i]);
-      fat += parseInt(tempFood[i].fat);
-      protein += parseInt(tempFood[i].protein);
-      carb += parseInt(tempFood[i].carb);
-      kcal += parseInt(tempFood[i].kcal);
-    }
-    var tempFoodList = {
-      date: time,
-      items: tempFood,
-      totalFat: fat,
-      totalProtein: protein,
-      totalCarb: carb,
-      totalKcal: kcal
-    }
-    tempCal.push(tempFoodList);
-    localStorage.setItem("calendar", JSON.stringify(tempCal));
-    console.log(localStorage.getItem("calendar"));
+  var fat = 0;
+  var protein = 0;
+  var carb = 0;
+  var kcal = 0;
+  var tempFoodList = [];
+
+  for (var i = 0; i < tempList.length; i++) {
+    tempFoodList.push(tempList[i]);
+    fat += parseInt(tempList[i].fat);
+    protein += parseInt(tempList[i].protein);
+    carb += parseInt(tempList[i].carb);
+    kcal += parseInt(tempList[i].kcal);
   }
+  var tempFoodList2 = {
+    date: time,
+    items: tempFoodList,
+    totalFat: fat,
+    totalProtein: protein,
+    totalCarb: carb,
+    totalKcal: kcal
+  }
+  var tempCalendar = calendar;
+  tempCalendar.push(tempFoodList2);
+  localStorage.setItem("calendar", JSON.stringify(tempCalendar));
+  tempCalendar = [];
+  tempList = [];
 });
 
 clearBtn.on("click", function() {
   $("#food-table tbody").empty();
-  localStorage.removeItem("foodList");
+  tempList = [];
 });
