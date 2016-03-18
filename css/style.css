@@ -103,7 +103,7 @@ body {
 }
 
 .navbar {
-  background-color: white;
+  background-color: transparent;
   border-color: #eee;
 }
 
@@ -125,6 +125,7 @@ body {
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border-color: #eee;
+  background-color: white;
 }
 
 
@@ -135,4 +136,20 @@ div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-even
 
 #zabuto_calendar th span {
   font-size: 18px;
+}
+
+@media screen and (max-width:767px) {
+  h1 {
+    position: fixed;
+    margin-top: -65px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    position: static;
+    margin-top: 0;
+    width: auto;
+  }
 }
