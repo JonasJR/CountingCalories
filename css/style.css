@@ -96,6 +96,11 @@ body {
   width: 100%;
 }
 
+.more_info_div {
+  height: 100%;
+  width: 100%;
+}
+
 /* Restyle boostrap */
 .navbar-inverse .navbar-brand {
   color: #2ec4b6;

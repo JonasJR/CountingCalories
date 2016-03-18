@@ -18,13 +18,18 @@ Stored as:
 
 ## TODO!
 # Kalender
--Visa mer info-sidan
+- Visa mer info-sidan
+- Visa livsmedel
+- Gå tillbaka
+
 
 # Index
--Lägga till länk när man trycker på "CountingCalories" (för antons skull)
+- Lägga till länk när man trycker på "CountingCalories" (för antons skull)
+- firsttime modul till index
 
 #Alla
--Fixa mobil meny inte genomskinlig
+- Fixa mobil meny inte genomskinlig
+- Lägga till fler näringsvärden (magnesium, calcium, salt)
 
 
 ## Copyright and License
