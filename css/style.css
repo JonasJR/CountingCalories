@@ -146,6 +146,10 @@ body {
   background-color: #24A99C;
 }
 
+.btn-primary:focus {
+  background-color: #24A99C;
+}
+
 .container {
   z-index: 0;
 }
@@ -172,5 +176,10 @@ div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-even
     position: static;
     margin-top: 0;
     width: auto;
+    background-color: white;
+  }
+
+  .navbar {
+    background-color: white;
   }
 }

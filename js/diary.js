@@ -59,6 +59,9 @@ $(document).ready(function() {
     data: eventData
   });
   addDateListeners(calendar);
+  $(".more_info_button").on("click", function() {
+    console.log($(this));
+  });
 });
 
 function createEventData(calendar) {
@@ -71,7 +74,7 @@ function createEventData(calendar) {
       badge: true,
       title: day.date,
       body: getBodyData(day),
-      footer: '<button class="btn btn-primary">Mer information</button>',
+      footer: "<button class='btn btn-primary more_info_button' onclick='loadMoreInfo(\""+day.date+"\");'>Mer information</button>",
       classname: "purple-event",
       "modal": true
     })
@@ -81,8 +84,9 @@ function createEventData(calendar) {
 
 
 function getBodyData(day) {
-  var body = '<div id="piechart_' + day.date + '" class="piechart"></div>';
-  body += '<label id="kcal-day-progress-label_' + day.date + '" for="kcal-day-progress"></label><div id="kcal-day-progress_' + day.date + '" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%"><span class="sr-only"></span></div></div>';
+  var body = '<div id="chart_' + day.date + '"><div id="piechart_' + day.date + '" class="piechart"></div>';
+  body += '<label id="kcal-day-progress-label_' + day.date + '" for="kcal-day-progress"></label><div id="kcal-day-progress_' + day.date + '" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%"><span class="sr-only"></span></div></div></div>';
+  body += '<div id="more-info_' + day.date + '"></div>'
   return body;
 }
 
@@ -128,4 +132,8 @@ function addDateListeners(calendar) {
       createProgressbar(day);
     })
   });
+}
+
+function loadMoreInfo(date) {
+  console.log(date);
 }
