@@ -61,19 +61,6 @@ $(document).ready(function() {
   addDateListeners(calendar);
 });
 
-/*
-
-{
-  date: 2016-03-10,
-  items: [{},{},{}],
-  totalFat: 300,
-  totalProtein: 150,
-  totalCarb: 30
-  totalKCal
-}
-
-*/
-
 function createEventData(calendar) {
   var returndata = [];
 
@@ -144,19 +131,4 @@ function addDateListeners(calendar) {
       createProgressbar(day);
     })
   });
-}
-
-
-function getdate() {
-
-  /*
-  Date.prototype.yyyymmdd = function() {
-    var yyyy = this.getFullYear().toString();
-    var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
-    var dd = this.getDate().toString();
-    return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]); // padding
-  };
-  d = new Date();
-  return d.yyyymmdd();
-  */
 }
