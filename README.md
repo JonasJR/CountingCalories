@@ -18,15 +18,13 @@ Stored as:
 
 ## TODO!
 # Kalender
-- Kalender ska fungera. Cirkeldiagram ska hålla data från localStorage.
-- Redigera dagar, kalender.
-
-#FoodStatistics
-- Lägga till rubrik för sidan, längst upp till vänster.
-- Diagram om vad du ätit specifikt för dagen vald i kalendern.
+-Visa mer info-sidan
 
 # Index
-- Vid klick på inlagt livsmedel ska en ny rad fällas ut under raden, med diverse statistik.
+-Lägga till länk när man trycker på "CountingCalories" (för antons skull)
+
+#Alla
+-Fixa mobil meny inte genomskinlig
 
 
 ## Copyright and License
