@@ -27,3 +27,10 @@ function hideMesssage(){
   var messageDiv = $("#message");
   messageDiv.fadeOut(400);
 }
+
+function fadeOutMessage(time){
+  var messageDiv = $("#message");
+  setTimeout(function () {
+    messageDiv.fadeOut(400);
+  }, time);
+}

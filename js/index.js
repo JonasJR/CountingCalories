@@ -53,7 +53,7 @@ function getFoodList() {
       if (temp2[i].date == $('#datePicker').val()) {
         tempCalFood = temp2[i].items;
         for (var j = 0; j < tempCalFood.length; j++) {
-          appendFoodItem(tempCalFood[j].amount, tempCalFood[j].name, tempCalFood[j].kcal, tempCalFood[j].id);
+          appendFoodItem(tempCalFood[j]);
           tempList.push(tempCalFood[j]);
         }
       } else {
@@ -123,7 +123,6 @@ foodInput.on("input", function() {
           var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
           var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
           var id = $.now();
-          appendFoodItem(amount, data.name, totalKcal.toFixed(2), id);
           var tempFoodList = {
             id: id,
             name: data.name,
@@ -137,7 +136,7 @@ foodInput.on("input", function() {
             vitaminB12: totalVitB12.toFixed(2),
             vitaminD: totalVitD.toFixed(2)
           }
-
+          appendFoodItem(tempFoodList);
           tempList.push(tempFoodList);
           searchList.empty();
           foodInput.val("");
@@ -151,12 +150,18 @@ foodInput.on("input", function() {
   }
 });
 
-function appendFoodItem(amount, name, kcal, id) {
-  $("#food-table tbody").append("<tr><td>" + amount + "</td><td>" + name + "</td><td>" + kcal +
-    "</td><td class='center'><a href='#' id='trash" + id + "' data-id='" + id + "'><i class='glyphicon glyphicon-trash'></i></a></td></tr>");
-  $("#trash" + id).on("click", function() {
+function appendFoodItem(list) {
+  $("#food-table tbody").append("<tr id='foodrow"+ list.id + "'><td>" + list.amount + "</td><td>" + list.name + "</td><td>" + list.kcal +
+    "</td><td class='center'><a href='#' id='trash" + list.id + "' data-id='" + list.id + "'><i class='glyphicon glyphicon-trash'></i></a></td></tr>" +
+    "<tr id='foodinfo" + list.id +"' style='font-style:italic;'><td>Protein: " + list.protein +"</td><td>Kolhydrater: " + list.carb +"</td><td>Fett: " + list.fat + "</td><td> </td></tr>");
+    $("#foodinfo" + list.id).hide();
+  $("#foodrow" + list.id).on("click", function(){
+    $("#foodinfo" + list.id).toggle();
+    console.log(this);
+  });
+  $("#trash" + list.id).on("click", function() {
     for (var i = 0; i < tempList.length; i++) {
-      if (tempList[i].id == $("#trash" + id).attr("data-id")) {
+      if (tempList[i].id == $("#trash" + list.id).attr("data-id")) {
         var indexremove = tempList.indexOf(tempList[i]);
         if (indexremove > -1) {
           tempList.splice(indexremove, 1);
@@ -197,7 +202,6 @@ function appendFoodItem(amount, name, kcal, id) {
 
 saveBtn.on("click", function() {
   var time = $("#datePicker").val();
-
   var fat = 0;
   var protein = 0;
   var carb = 0;
@@ -224,6 +228,8 @@ saveBtn.on("click", function() {
   localStorage.setItem("calendar", JSON.stringify(tempCalendar));
   tempCalendar = [];
   tempList = [];
+  showMessage("Tillagd i din kalender! Kul!");
+  fadeOutMessage(2000);
 });
 
 clearBtn.on("click", function() {
