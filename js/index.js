@@ -57,9 +57,7 @@ function getFoodList() {
           tempList.push(tempCalFood[j]);
         }
       } else {
-        if(temp2[i].items.length < 1){
-
-        }else {
+        if (temp2[i].items.length >= 1) {
           calendar.push(temp2[i]);
         }
       }
@@ -94,59 +92,7 @@ foodInput.on("input", function() {
         searchList.append("<li class='list-group-item'><a class='searchitem' href='#' data-id='" + data[index].number + "'>" + data[index].name + "</a></li>");
       }
       $(".searchitem").on("click", function() {
-        if (sugg.length < 2) {
-          showErrorMessage("Vänligen ange både mängd och livsmedel.");
-          return;
-        }
-        if (amount.match(/^[0-9]+$/) != null) {
-          showErrorMessage("Vilken enhet är det?");
-          return;
-        }
-        hideMesssage();
-        var foodId = $(this).attr("data-id");
-        $.ajax({
-          url: callurl + "/" + foodId,
-          dataType: "JSON",
-        }).done(function(data) {
-          var unit = "";
-          var weight = "";
-          for (var i = 0; i < amount.length; i++) {
-            if (/^[0-9]+$/.test(amount[i])) {
-              weight += amount[i];
-            } else {
-              unit += amount[i];
-            }
-          }
-          var totalGram = units[unit] * weight;
-          var totalKcal = totalGram * (data.nutrientValues.energyKcal / 100);
-          var totalFat = totalGram * (data.nutrientValues.fat / 100);
-          var totalProtein = totalGram * (data.nutrientValues.protein / 100);
-          var totalCarb = totalGram * (data.nutrientValues.carbohydrates / 100);
-          var totalVitC = totalGram * (data.nutrientValues.vitaminC / 100);
-          var totalVitB6 = totalGram * (data.nutrientValues.vitaminB6 / 100);
-          var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
-          var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
-          var id = $.now();
-          var tempFoodList = {
-            id: id,
-            name: data.name,
-            amount: amount,
-            fat: totalFat.toFixed(2),
-            kcal: totalKcal.toFixed(2),
-            protein: totalProtein.toFixed(2),
-            carb: totalCarb.toFixed(2),
-            vitaminC: totalVitC.toFixed(2),
-            vitaminB6: totalVitB6.toFixed(2),
-            vitaminB12: totalVitB12.toFixed(2),
-            vitaminD: totalVitD.toFixed(2)
-          }
-          appendFoodItem(tempFoodList);
-          tempList.push(tempFoodList);
-          searchList.empty();
-          foodInput.val("");
-        }).fail(function() {
-          console.log("food id fail");
-        });
+        addToFoodList(this);
       });
     }).fail(function() {
       console.log("fail to connect to matapi");
@@ -154,14 +100,69 @@ foodInput.on("input", function() {
   }
 });
 
+function addToFoodList(searchItem) {
+  if (sugg.length < 2) {
+    showErrorMessage("Vänligen ange både mängd och livsmedel.");
+    return;
+  }
+  if (amount.match(/^[0-9]+$/) != null) {
+    showErrorMessage("Vilken enhet är det?");
+    return;
+  }
+  hideMesssage();
+  var foodId = $(searchItem).attr("data-id");
+  $.ajax({
+    url: callurl + "/" + foodId,
+    dataType: "JSON",
+  }).done(function(data) {
+    var unit = "";
+    var weight = "";
+    for (var i = 0; i < amount.length; i++) {
+      if (/^[0-9]+$/.test(amount[i])) {
+        weight += amount[i];
+      } else {
+        unit += amount[i];
+      }
+    }
+    var totalGram = units[unit] * weight;
+    var totalKcal = totalGram * (data.nutrientValues.energyKcal / 100);
+    var totalFat = totalGram * (data.nutrientValues.fat / 100);
+    var totalProtein = totalGram * (data.nutrientValues.protein / 100);
+    var totalCarb = totalGram * (data.nutrientValues.carbohydrates / 100);
+    var totalVitC = totalGram * (data.nutrientValues.vitaminC / 100);
+    var totalVitB6 = totalGram * (data.nutrientValues.vitaminB6 / 100);
+    var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
+    var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
+    var id = $.now();
+    var tempFoodList = {
+      id: id,
+      name: data.name,
+      amount: amount,
+      fat: totalFat.toFixed(2),
+      kcal: totalKcal.toFixed(2),
+      protein: totalProtein.toFixed(2),
+      carb: totalCarb.toFixed(2),
+      vitaminC: totalVitC.toFixed(2),
+      vitaminB6: totalVitB6.toFixed(2),
+      vitaminB12: totalVitB12.toFixed(2),
+      vitaminD: totalVitD.toFixed(2)
+    }
+    appendFoodItem(tempFoodList);
+    tempList.push(tempFoodList);
+    searchList.empty();
+    foodInput.val("");
+  }).fail(function() {
+    console.log("food id fail");
+  });
+}
+
 function appendFoodItem(list) {
-  $("#food-table tbody").append("<tr id='foodrow"+ list.id + "'><td>" + list.amount + "</td><td>" + list.name + "</td><td>" + list.kcal +
+  $("#food-table tbody").append("<tr id='foodrow" + list.id + "'><td>" + list.amount + "</td><td>" + list.name + "</td><td>" + list.kcal +
     "</td><td class='center'><a href='#' id='trash" + list.id + "' data-id='" + list.id + "'><i class='glyphicon glyphicon-trash'></i></a></td></tr>" +
-    "<tr id='foodinfo" + list.id +"' style='font-style:italic;'><td>Protein: " + list.protein +"</td><td>Kolhydrater: " + list.carb +"</td><td>Fett: " + list.fat + "</td><td> </td></tr>");
-    $("#foodinfo" + list.id).hide();
-  $("#foodrow" + list.id).on("click", function(){
+    "<tr id='foodinfo" + list.id + "' style='font-style:italic;'><td>Protein: " + list.protein + "</td><td>Kolhydrater: " + list.carb + "</td><td>Fett: " + list.fat + "</td><td> </td></tr>");
+  $("#foodinfo" + list.id).hide();
+  $("#foodrow" + list.id).on("click", function() {
     $("#foodinfo" + list.id).toggle();
-    console.log(this);
   });
   $("#trash" + list.id).on("click", function() {
     for (var i = 0; i < tempList.length; i++) {
@@ -206,6 +207,10 @@ function appendFoodItem(list) {
 
 saveBtn.on("click", function() {
   var time = $("#datePicker").val();
+  if(time == ""){
+    showErrorMessage("Välj ett datum!");
+    return;
+  }
   var fat = 0;
   var protein = 0;
   var carb = 0;
@@ -228,8 +233,8 @@ saveBtn.on("click", function() {
     totalKcal: kcal
   }
   var tempCalendar = calendar;
-  if(tempFoodList.length < 1){
-    showMessage("Dagen är borttagen");
+  if (tempFoodList.length < 1) {
+    showMessage("Dagen är borttagen!");
   } else {
     tempCalendar.push(tempFoodList2);
     showMessage("Tillagd i din kalender! Kul!");
@@ -237,6 +242,7 @@ saveBtn.on("click", function() {
   localStorage.setItem("calendar", JSON.stringify(tempCalendar));
   tempCalendar = [];
   tempList = [];
+  getFoodList();
   fadeOutMessage(2000);
 });
 
