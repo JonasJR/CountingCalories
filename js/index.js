@@ -57,7 +57,11 @@ function getFoodList() {
           tempList.push(tempCalFood[j]);
         }
       } else {
-        calendar.push(temp2[i]);
+        if(temp2[i].items.length < 1){
+
+        }else {
+          calendar.push(temp2[i]);
+        }
       }
     }
   }
@@ -224,11 +228,15 @@ saveBtn.on("click", function() {
     totalKcal: kcal
   }
   var tempCalendar = calendar;
-  tempCalendar.push(tempFoodList2);
+  if(tempFoodList.length < 1){
+    showMessage("Dagen är borttagen");
+  } else {
+    tempCalendar.push(tempFoodList2);
+    showMessage("Tillagd i din kalender! Kul!");
+  }
   localStorage.setItem("calendar", JSON.stringify(tempCalendar));
   tempCalendar = [];
   tempList = [];
-  showMessage("Tillagd i din kalender! Kul!");
   fadeOutMessage(2000);
 });
 

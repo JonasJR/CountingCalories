@@ -73,7 +73,7 @@
     <!-- End message dialog -->
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1>Fyll i ditt intag</h1>
+        <h1>Dagligt intag</h1>
       </div>
     </div>
 
@@ -83,6 +83,9 @@
       <div class="form-group">
         <div class="row">
           <div id="food-input-div" class="col-xs-12">
+            <div class="form-group">
+              <input type="date" id="datePicker" class="form-control">
+            </div>
             <label for="food-input">Fyll i livsmedel</label>
             <input type="text" placeholder="ex. 500g Vetemjöl" class="form-control" id="food-input">
             <ul class="list-group" id="search-list">
@@ -105,7 +108,7 @@
           </thead>
           <tfoot>
             <td colspan="4">
-              Baserat på uppgifter från Livsmedelverket.
+              Baserat på uppgifter från MatAPI
             </td>
           </tfoot>
           <tbody>
@@ -115,9 +118,6 @@
     </div>
     <div class="row">
       <div class="col-xs-12 center">
-        <div class="form-group">
-          <input type="date" id="datePicker" class="form-control">
-        </div>
         <div class="form-group"><button type="button" class="btn btn-primary" id="save-list-btn">Spara</button>
           <button type="button" class="btn btn-default" id="clear-list-btn">Rensa</button>
         </div>
