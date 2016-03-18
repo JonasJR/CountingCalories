@@ -35,6 +35,9 @@ body {
 
 h1 {
   color: #011627;
+  background-color: white;
+  z-index: 10;
+  height: 46px;
 }
 
 .center{
@@ -83,6 +86,12 @@ body {
   text-decoration: none;
 }
 
+#datePicker {
+  witdth: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
 #kcal-day-progress {
   height: 30px;
   width: 100%;
@@ -128,6 +137,18 @@ body {
   background-color: white;
 }
 
+.btn-primary {
+  background-color: #2ec4b6;
+  border-color: #24A99C;
+}
+
+.btn-primary:hover {
+  background-color: #24A99C;
+}
+
+.container {
+  z-index: 0;
+}
 
 /* Calendar styles */
 div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-event {

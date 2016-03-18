@@ -82,7 +82,7 @@ function createEventData(calendar) {
 
 function getBodyData(day) {
   var body = '<div id="piechart_' + day.date + '" class="piechart"></div>';
-  body += '<label id="kcal-day-progress-label" for="kcal-day-progress"></label><div id="kcal-day-progress" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only"></span></div></div>';
+  body += '<label id="kcal-day-progress-label_' + day.date + '" for="kcal-day-progress"></label><div id="kcal-day-progress_' + day.date + '" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%"><span class="sr-only"></span></div></div>';
   return body;
 }
 
@@ -114,13 +114,10 @@ function createChart(day) {
 }
 
 function createProgressbar (day) {
-  console.log(day);
   var caloriesEatenInPercent = (day.totalKcal / 2400.0) * 100;
-  console.log(JSON.parse(localStorage.getItem("calendar")));
-  console.log(caloriesEatenInPercent);
 
-  $("#kcal-day-progress").children().first().width(caloriesEatenInPercent + "%");
-  $("#kcal-day-progress-label").text("Du har ätit " + day.totalKcal + "kcal av dina dagliga " + localStorage.getItem("energyNeeds"));
+  $("#kcal-day-progress_" + day.date).children().first().width(caloriesEatenInPercent + "%");
+  $("#kcal-day-progress-label_" + day.date).text("Du har ätit " + day.totalKcal + "kcal av dina dagliga " + localStorage.getItem("energyNeeds"));
 }
 
 function addDateListeners(calendar) {
