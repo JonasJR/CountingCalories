@@ -60,14 +60,13 @@ body {
 	font-size	: 11px;
 }
 
-#food-input-div {
+#search-list-div {
   position: relative;
 }
 
 #search-list {
   position: absolute;
-  margin-top: 59px;
-  top: 0;
+  top: 108px;
   z-index: 10;
 }
 
