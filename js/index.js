@@ -70,6 +70,10 @@ function getFoodList() {
 
 foodInput.on("input", function() {
   var searchTerm = foodInput.val();
+  if (searchTerm.length < 2) {
+    searchList.empty();
+  }
+  
   if (foodInput.val().length > 2) {
     sugg = searchTerm.split(" ");
     for (i = 0; i < sugg.length; i++) {
@@ -81,6 +85,8 @@ foodInput.on("input", function() {
     }
 
     if (searchTerm.length < 3 || searchTerm.match(regex) != undefined) {
+      console.log("empty");
+      searchList.empty();
       return;
     }
 
