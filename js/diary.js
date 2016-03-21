@@ -1,50 +1,5 @@
 $(document).ready(function() {
 
-  var energyNeeds = JSON.parse(localStorage.getItem("energyNeeds"));
-
-  if (energyNeeds == null) {
-    energyModal = $("#energyModal");
-    energyModal.modal({
-      backdrop: 'static',
-      keyboard: false
-    })
-    energyModal.modal('show');
-  }
-
-  var addEnergyModel = $("#add-energy-modal-button");
-  addEnergyModel.on("click", function() {
-
-    var array = $("#modal-form").serializeArray();
-    var gender = array[0].value;
-    var age = array[1].value;
-    var activity = array[2].value;
-    var energyNeed = 0;
-
-    if (gender == 'male') {
-      if (age == 'young' && activity == 'low') { energyNeed = 2500 }
-      if (age == 'young' && activity == 'medium') { energyNeed = 2800 }
-      if (age == 'young' && activity == 'high') { energyNeed = 3200 }
-      if (age == 'middle' && activity == 'low') { energyNeed = 2300 }
-      if (age == 'middle' && activity == 'medium') { energyNeed = 2600 }
-      if (age == 'middle' && activity == 'high') { energyNeed = 3000 }
-      if (age == 'senior' && activity == 'low') { energyNeed = 2000 }
-      if (age == 'senior' && activity == 'medium') { energyNeed = 2300 }
-      if (age == 'senior' && activity == 'high') { energyNeed = 2600 }
-    } else {
-      if (age == 'young' && activity == 'low') { energyNeed = 2000 }
-      if (age == 'young' && activity == 'medium') { energyNeed = 2300 }
-      if (age == 'young' && activity == 'high') { energyNeed = 2500 }
-      if (age == 'middle' && activity == 'low') { energyNeed = 1800 }
-      if (age == 'middle' && activity == 'medium') { energyNeed = 2100 }
-      if (age == 'middle' && activity == 'high') { energyNeed = 2400 }
-      if (age == 'senior' && activity == 'low') { energyNeed = 1700 }
-      if (age == 'senior' && activity == 'medium') { energyNeed = 1900 }
-      if (age == 'senior' && activity == 'high') { energyNeed = 2200 }
-    }
-
-    localStorage.setItem("energyNeeds", energyNeed);
-  });
-
   var calendar = JSON.parse(localStorage.getItem("calendar"));
   var badgedays = [];
 
