@@ -82,7 +82,7 @@ function createProgressbar(day) {
 
   var caloriesEatenInPercent = (day.totalKcal / energyNeeds) * 100;
 
-  $("#kcal-day-progress_" + day.date).children().first().width(energyNeeds + "%");
+  $("#kcal-day-progress_" + day.date).children().first().width(caloriesEatenInPercent + "%");
   $("#kcal-day-progress-label_" + day.date).text("Du har ätit " + day.totalKcal + "kcal av dina dagliga " + energyNeeds);
 }
 
