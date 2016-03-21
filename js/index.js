@@ -80,6 +80,10 @@ foodInput.on("input", function() {
       }
     }
 
+    if (searchTerm.length < 3 || searchTerm.match(regex) != undefined) {
+      return;
+    }
+
     $.ajax({
       url: callurl,
       dataType: "JSON",
@@ -88,7 +92,7 @@ foodInput.on("input", function() {
       }
     }).done(function(data) {
       searchList.empty();
-      for (var index = 0; index < 10; index++) {
+      for (var index = 0; index < 15; index++) {
         if (data[index] == undefined) {
           break;
         }
@@ -114,6 +118,7 @@ function addToFoodList(searchItem) {
   }
   hideMesssage();
   var foodId = $(searchItem).attr("data-id");
+
   $.ajax({
     url: callurl + "/" + foodId,
     dataType: "JSON",

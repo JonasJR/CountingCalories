@@ -80,6 +80,8 @@ function createChart(day) {
 function createProgressbar(day) {
   var energyNeeds = JSON.parse(localStorage.getItem("energyNeeds"));
 
+  console.log(energyNeeds);
+
   var caloriesEatenInPercent = (day.totalKcal / energyNeeds) * 100;
 
   $("#kcal-day-progress_" + day.date).children().first().width(caloriesEatenInPercent + "%");
