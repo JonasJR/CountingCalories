@@ -90,8 +90,8 @@ function loadMoreInfo(date) {
   var calendar = JSON.parse(localStorage.getItem("calendar"));
   var day;
 
-  var carb, fat, protein, vitaminB6, vitaminB12, vitaminC, vitaminD;
-  carb = fat = protein = vitaminB6 = vitaminB12 = vitaminC = vitaminD = 0;
+  var carb, fat, protein, vitaminB6, vitaminB12, vitaminC, vitaminD, magnesium, salt, chol, iron, fibres, calcium;
+  carb = fat = protein = vitaminB6 = vitaminB12 = vitaminC = vitaminD = magnesium = salt = chol = iron = fibres = calcium = 0;
 
   calendar.forEach(function(d){
     if (d.date == date) {
@@ -107,6 +107,12 @@ function loadMoreInfo(date) {
     vitaminB6 += parseFloat(item.vitaminB6);
     vitaminB12 += parseFloat(item.vitaminB12);
     vitaminD += parseFloat(item.vitaminD);
+    magnesium += parseFloat(item.magnesium);
+    calcium += parseFloat(item.calcium);
+    salt += parseFloat(item.salt);
+    chol += parseFloat(item.cholesterol);
+    iron += parseFloat(item.iron);
+    fibres += parseFloat(item.fibres);
   });
 
 
@@ -122,10 +128,16 @@ function loadMoreInfo(date) {
   html += '<tr><td>Fett</td><td>' + fat + 'g</td><td>-</td></tr>';
   html += '<tr><td>Kolhydrater</td><td>' + carb + 'g</td><td>-</td></tr>';
   html += '<tr><td>Protein</td><td>' + protein + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Salt</td><td>' + salt + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Kolesterol</td><td>' + chol + 'mg</td><td>-</td></tr>';
   html += '<tr><td>VitaminB6</td><td>' + vitaminB6 + 'mg</td><td>' + ((vitaminB6 / 1.4)*100).toFixed(0) + '% (1.4mg)</td></tr>';
   html += '<tr><td>VitaminB12</td><td>' + vitaminB12 + 'µg</td><td>' + ((vitaminB12 / 2.5)*100).toFixed(0) + '% (2.5ug)</td></tr>';
   html += '<tr><td>VitaminC</td><td>' + vitaminC + 'mg</td><td>' + ((vitaminC / 80)*100).toFixed(0) + '% (80mg)</td></tr>';
   html += '<tr><td>VitaminD</td><td>' + vitaminD + 'µg</td><td>' + ((vitaminD / 5)*100).toFixed(0) + '% (5ug)</td></tr>';
+  html += '<tr><td>Magnesium</td><td>' + magnesium + 'mg</td><td>' + ((magnesium / 375)*100).toFixed(0) + '% (375mg)</td></tr>';
+  html += '<tr><td>Järn</td><td>' + iron + 'mg</td><td>' + ((iron / 14)*100).toFixed(0) + '% (14mg)</td></tr>';
+  html += '<tr><td>Fiber</td><td>' + fibres + 'g</td><td>' + ((fibres / 30)*100).toFixed(0) + '% (~30g)</td></tr>';
+  html += '<tr><td>Calcium</td><td>' + calcium + 'mg</td><td>' + ((calcium / 800)*100).toFixed(0) + '% (800mg)</td></tr>';
   html += '</table>';
 
   moreInfoDiv.append(html);
