@@ -152,13 +152,13 @@ function addToFoodList(searchItem) {
       vitaminC: totalVitC.toFixed(2),
       vitaminB6: totalVitB6.toFixed(2),
       vitaminB12: totalVitB12.toFixed(2),
-      vitaminD: totalVitD.toFixed(2)
+      vitaminD: totalVitD.toFixed(2),
       magnesium: totalMagn.toFixed(2),
       calcium: totalCalc.toFixed(2),
       salt: totalSalt.toFixed(2),
       cholesterol: totalChol.toFixed(2),
       iron: totalIron.toFixed(2),
-      fibres = totalFibres.toFixed(2)
+      fibres: totalFibres.toFixed(2)
     }
     appendFoodItem(tempFoodList);
     tempList.push(tempFoodList);
