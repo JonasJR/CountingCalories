@@ -26,7 +26,7 @@ function createEventData(calendar) {
       badge: true,
       title: day.date,
       body: getBodyData(day),
-      footer: "<button class='btn btn-primary more_info_button' onclick='loadMoreInfo(\""+day.date+"\");'>Mer information</button>",
+      footer: "<button class='btn btn-primary more_info_button' id='more_info_button_" + day.date + "' onclick='loadMoreInfo(\"" + day.date + "\");'>Mer information</button>",
       classname: "purple-event",
       "modal": true
     })
@@ -37,8 +37,16 @@ function createEventData(calendar) {
 
 function getBodyData(day) {
   var body = '<div id="chart_' + day.date + '"><div id="piechart_' + day.date + '" class="piechart"></div>';
-  body += '<label id="kcal-day-progress-label_' + day.date + '" for="kcal-day-progress"></label><div id="kcal-day-progress_' + day.date + '" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%"><span class="sr-only"></span></div></div></div>';
-  body += '<div id="more-info_' + day.date + '" class="more_info_div" style="display:none"></div>'
+  body += '<label id="kcal-day-progress-label_' + day.date + '" for="kcal-day-progress"></label><div id="kcal-day-progress_' + day.date + '" class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%"><span class="sr-only"></span></div></div><div id="more-info-foodlist_' + day.date + '" ></div>';
+  body += '<label for="foodlist">Du har ätit:</label>';
+  body +=  '<ul class="list-group" id="more-info-foodlist_' + day.date + '">';
+
+for (var i = 0; i < day.items.length ; i++) {
+  body += '<li class="list-group-item">' + day.items[i].amount + ' ' + day.items[i].name + '</li>'
+}
+
+  body += '</ul></div>';
+  body += '<div id="more-info_' + day.date + '" class="more_info_div" style="display:none"></div>';
   return body;
 }
 
@@ -48,7 +56,7 @@ function createChart(day) {
   var chart = AmCharts.makeChart("piechart_" + day.date, {
     "type": "pie",
     "theme": "none",
-    "dataProvider": [ {
+    "dataProvider": [{
       "Typ": "Fett",
       "Gram": ((day.totalFat * 9) / day.totalKcal) * 100
     }, {
@@ -60,8 +68,8 @@ function createChart(day) {
     }],
     "valueField": "Gram",
     "titleField": "Typ",
-     "balloon":{
-     "fixedPosition":true
+    "balloon": {
+      "fixedPosition": true
     },
     "export": {
       "enabled": true
@@ -69,11 +77,13 @@ function createChart(day) {
   });
 }
 
-function createProgressbar (day) {
-  var caloriesEatenInPercent = (day.totalKcal / 2400.0) * 100;
+function createProgressbar(day) {
+  var energyNeeds = JSON.parse(localStorage.getItem("energyNeeds"));
 
-  $("#kcal-day-progress_" + day.date).children().first().width(caloriesEatenInPercent + "%");
-  $("#kcal-day-progress-label_" + day.date).text("Du har ätit " + day.totalKcal + "kcal av dina dagliga " + localStorage.getItem("energyNeeds"));
+  var caloriesEatenInPercent = (day.totalKcal / energyNeeds) * 100;
+
+  $("#kcal-day-progress_" + day.date).children().first().width(energyNeeds + "%");
+  $("#kcal-day-progress-label_" + day.date).text("Du har ätit " + day.totalKcal + "kcal av dina dagliga " + energyNeeds);
 }
 
 function addDateListeners(calendar) {
@@ -87,19 +97,31 @@ function addDateListeners(calendar) {
 }
 
 function loadMoreInfo(date) {
+
+  var moreInfoDiv = $("#more-info_" + date);
+
+  if ($('#more_info_button_' + date).text() != "Mindre information") {
+    $('#more_info_button_' + date).text("Mindre information");
+    $("#chart_" + date).hide();
+    moreInfoDiv.fadeIn(200);
+  } else {
+    $('#more_info_button_' + date).text("Mer information");
+    moreInfoDiv.hide();
+    $('#chart_' + date).fadeIn(200);
+  }
   var calendar = JSON.parse(localStorage.getItem("calendar"));
   var day;
 
   var carb, fat, protein, vitaminB6, vitaminB12, vitaminC, vitaminD, magnesium, salt, chol, iron, fibres, calcium;
   carb = fat = protein = vitaminB6 = vitaminB12 = vitaminC = vitaminD = magnesium = salt = chol = iron = fibres = calcium = 0;
 
-  calendar.forEach(function(d){
+  calendar.forEach(function(d) {
     if (d.date == date) {
       day = d
     }
   });
 
-  day.items.forEach(function(item){
+  day.items.forEach(function(item) {
     fat += parseFloat(item.fat);
     protein += parseFloat(item.protein);
     carb += parseFloat(item.carb);
@@ -115,31 +137,23 @@ function loadMoreInfo(date) {
     fibres += parseFloat(item.fibres);
   });
 
-
-  console.log(day);
-
-  var moreInfoDiv = $("#more-info_" + date);
-
-  $("#chart_" + date).fadeOut(200);
-  moreInfoDiv.fadeIn(200);
-
   var html = '<table class="table">';
   html += '<thead><th>Typ</th><th>Mängd</th><th>% av RDI</th></thead>'
-  html += '<tr><td>Fett</td><td>' + fat + 'g</td><td>-</td></tr>';
-  html += '<tr><td>Kolhydrater</td><td>' + carb + 'g</td><td>-</td></tr>';
-  html += '<tr><td>Protein</td><td>' + protein + 'g</td><td>-</td></tr>';
-  html += '<tr><td>Salt</td><td>' + salt + 'g</td><td>-</td></tr>';
-  html += '<tr><td>Kolesterol</td><td>' + chol + 'mg</td><td>-</td></tr>';
-  html += '<tr><td>VitaminB6</td><td>' + vitaminB6 + 'mg</td><td>' + ((vitaminB6 / 1.4)*100).toFixed(0) + '% (1.4mg)</td></tr>';
-  html += '<tr><td>VitaminB12</td><td>' + vitaminB12 + 'µg</td><td>' + ((vitaminB12 / 2.5)*100).toFixed(0) + '% (2.5ug)</td></tr>';
-  html += '<tr><td>VitaminC</td><td>' + vitaminC + 'mg</td><td>' + ((vitaminC / 80)*100).toFixed(0) + '% (80mg)</td></tr>';
-  html += '<tr><td>VitaminD</td><td>' + vitaminD + 'µg</td><td>' + ((vitaminD / 5)*100).toFixed(0) + '% (5ug)</td></tr>';
-  html += '<tr><td>Magnesium</td><td>' + magnesium + 'mg</td><td>' + ((magnesium / 375)*100).toFixed(0) + '% (375mg)</td></tr>';
-  html += '<tr><td>Järn</td><td>' + iron + 'mg</td><td>' + ((iron / 14)*100).toFixed(0) + '% (14mg)</td></tr>';
-  html += '<tr><td>Fiber</td><td>' + fibres + 'g</td><td>' + ((fibres / 30)*100).toFixed(0) + '% (~30g)</td></tr>';
-  html += '<tr><td>Calcium</td><td>' + calcium + 'mg</td><td>' + ((calcium / 800)*100).toFixed(0) + '% (800mg)</td></tr>';
+  html += '<tr><td>Fett</td><td>' + fat.toFixed(2) + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Kolhydrater</td><td>' + carb.toFixed(2) + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Protein</td><td>' + protein.toFixed(2) + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Salt</td><td>' + salt.toFixed(2) + 'g</td><td>-</td></tr>';
+  html += '<tr><td>Kolesterol</td><td>' + chol.toFixed(2) + 'mg</td><td>-</td></tr>';
+  html += '<tr><td>VitaminB6</td><td>' + vitaminB6.toFixed(2) + 'mg</td><td>' + ((vitaminB6 / 1.4) * 100).toFixed(0) + '% (1.4mg)</td></tr>';
+  html += '<tr><td>VitaminB12</td><td>' + vitaminB12.toFixed(2) + 'µg</td><td>' + ((vitaminB12 / 2.5) * 100).toFixed(0) + '% (2.5ug)</td></tr>';
+  html += '<tr><td>VitaminC</td><td>' + vitaminC.toFixed(2) + 'mg</td><td>' + ((vitaminC / 80) * 100).toFixed(0) + '% (80mg)</td></tr>';
+  html += '<tr><td>VitaminD</td><td>' + vitaminD.toFixed(2) + 'µg</td><td>' + ((vitaminD / 5) * 100).toFixed(0) + '% (5ug)</td></tr>';
+  html += '<tr><td>Magnesium</td><td>' + magnesium.toFixed(2) + 'mg</td><td>' + ((magnesium / 375) * 100).toFixed(0) + '% (375mg)</td></tr>';
+  html += '<tr><td>Järn</td><td>' + iron.toFixed(2) + 'mg</td><td>' + ((iron / 14) * 100).toFixed(0) + '% (14mg)</td></tr>';
+  html += '<tr><td>Fiber</td><td>' + fibres.toFixed(2) + 'g</td><td>' + ((fibres / 30) * 100).toFixed(0) + '% (~30g)</td></tr>';
+  html += '<tr><td>Calcium</td><td>' + calcium.toFixed(2) + 'mg</td><td>' + ((calcium / 800) * 100).toFixed(0) + '% (800mg)</td></tr>';
   html += '</table>';
 
+  moreInfoDiv.empty();
   moreInfoDiv.append(html);
-
 }
