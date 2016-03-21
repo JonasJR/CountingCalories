@@ -12,6 +12,18 @@ body {
   font-family: 'open sans';
 }
 
+#background {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: url("../images/fruit-group.png") no-repeat;
+  background-size: cover;
+  opacity: 0.15;
+  width: 250px;
+  height: 200px;
+  z-index: -1;
+}
+
 #message {
   position: relative;
   display: none;
@@ -35,7 +47,6 @@ body {
 
 h1 {
   color: #011627;
-  background-color: white;
   z-index: 10;
   height: 46px;
 }
@@ -167,11 +178,25 @@ div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-even
   font-size: 18px;
 }
 
+div.zabuto_calendar .table tr.calendar-dow-header th {
+  background-color: transparent;
+}
+
+div.zabuto_calendar .table tr.calendar-month-header th {
+  background-color: transparent;
+}
+
+div.zabuto_calendar .table tr th, div.zabuto_calendar .table tr td {
+  background-color: transparent;
+}
+
 @media screen and (max-width:767px) {
   h1 {
+    background-color: white;
     position: fixed;
-    margin-top: -65px;
+    margin-top: -60px;
     width: 100%;
+    font-size: 1.9em;
   }
 }
 
@@ -180,7 +205,7 @@ div.zabuto_calendar .badge-event, div.zabuto_calendar div.legend span.badge-even
     position: static;
     margin-top: 0;
     width: auto;
-    background-color: white;
+    background-color: transparent;
   }
 
   .navbar {

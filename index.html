@@ -34,7 +34,7 @@
 </head>
 
 <body>
-
+<div id="background"></div>
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -124,6 +124,50 @@
         <div class="form-group">
           <button type="button" class="btn btn-primary" id="save-list-btn">Spara</button>
           <button type="button" class="btn btn-default" id="clear-list-btn">Rensa</button>
+        </div>
+      </div>
+    </div>
+    <!-- First time modal -->
+    <div class="modal fade" id="energyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Energibehov</h4>
+          </div>
+          <div class="modal-body">
+            <h5>Hej!</h5><p>Detta är första gången du besöker Counting Calories. För att ge dig mer precis beräkning av ditt energibehov ber vi dig fylla i tabellen nedan.</p>
+            <hr>
+            <form id="modal-form">
+              <div class="form-group">
+                <label for="gender">Kön</label><br>
+                <label class="radio-inline">
+                  <input type="radio" name="gender" value="male">Man
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" checked name="gender" value="female">Kvinna
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="age">Ålder</label>
+                <select class="form-control" name="age" id="age">
+                  <option value="young">10-30</option>
+                  <option value="middle">31-60</option>
+                  <option value="senior">61 och äldre</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="active">Aktivitetsnivå</label>
+                <select class="form-control" name="active" id="active">
+                  <option value="low">Låg</option>
+                  <option value="medium">Medel</option>
+                  <option value="high">Hög</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="add-energy-modal-button" type="button" class="btn btn-primary" data-dismiss="modal">Lägg till energibehov</button>
+          </div>
         </div>
       </div>
     </div>
