@@ -133,6 +133,13 @@ function addToFoodList(searchItem) {
     var totalVitB6 = totalGram * (data.nutrientValues.vitaminB6 / 100);
     var totalVitB12 = totalGram * (data.nutrientValues.vitaminB12 / 100);
     var totalVitD = totalGram * (data.nutrientValues.vitaminD / 100);
+    var totalMagn = totalGram * (data.nutrientValues.magnesium / 100);
+    var totalCalc = totalGram * (data.nutrientValues.calcium / 100);
+    var totalSalt = totalGram * (data.nutrientValues.salt / 100);
+    var totalChol = totalGram * (data.nutrientValues.cholesterol / 100);
+    var totalIron = totalGram * (data.nutrientValues.iron / 100);
+    var totalFibres = totalGram * (data.nutrientValues.fibres / 100);
+
     var id = $.now();
     var tempFoodList = {
       id: id,
@@ -146,6 +153,12 @@ function addToFoodList(searchItem) {
       vitaminB6: totalVitB6.toFixed(2),
       vitaminB12: totalVitB12.toFixed(2),
       vitaminD: totalVitD.toFixed(2)
+      magnesium: totalMagn.toFixed(2),
+      calcium: totalCalc.toFixed(2),
+      salt: totalSalt.toFixed(2),
+      cholesterol: totalChol.toFixed(2),
+      iron: totalIron.toFixed(2),
+      fibres = totalFibres.toFixed(2)
     }
     appendFoodItem(tempFoodList);
     tempList.push(tempFoodList);

@@ -1,19 +1,33 @@
 # CountingCalories app project for course mobile webdevelopment
 
 ## Food object
-Stored as:
+Stored as date object:
 {
-  date:
-  name:
-  fat:
-  protein:
-  carb:
-  vitaminC:
-  vitaminA:
-  vitaminB1:
-  vitaminB2:
-  vitaminB12:
-  vitaminD:
+  date: time,
+  items: foodItems,
+  totalFat: fat,
+  totalProtein: protein,
+  totalCarb: carb,
+  totalKcal: kcal
+}
+and foodItems in a JSON array:
+{
+  id: timestamp,
+  name: name,
+  amount: amount,
+  fat: totalFat,
+  kcal: totalKcal,
+  protein: totalProtein,
+  carb: totalCarb,
+  vitaminC: totalVitC,
+  vitaminB6: totalVitB6,
+  vitaminB12: totalVitB12,
+  vitaminD: totalVitD,
+  magnesium: totalMagn,
+  calcium: totalCalc,
+  salt: totalSalt,
+  cholesterol: totalChol,
+  iron: totalIron
 }
 
 ## TODO!
